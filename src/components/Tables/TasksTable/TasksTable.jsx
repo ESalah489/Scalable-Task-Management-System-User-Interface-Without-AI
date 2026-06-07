@@ -3,14 +3,15 @@ import { Edit01, Trash01 } from "@untitledui/icons";
 import { Table as AriaTable, TableHeader, Column, TableBody, Row, Cell, Button } from "react-aria-components";
 import TaskModal from "../../popups/TaskModal/TaskModal";
 import DeleteAlert from "../../popups/DeleteAlert/DeleteAlert";
+import ActionsLoader from "../../common/ActionsLoader/ActionsLoader";
 
-export const TasksTable = ({ 
-    tasksData, 
-    pagination, 
-    isLoading, 
-    currentPage, 
-    setCurrentPage, 
-    handleUpdateTask, 
+export const TasksTable = ({
+    tasksData,
+    pagination,
+    isLoading,
+    currentPage,
+    setCurrentPage,
+    handleUpdateTask,
     handleDeleteTask,
     handleCreateTask
 }) => {
@@ -90,14 +91,11 @@ export const TasksTable = ({
         <div className="w-full overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
             <div className="overflow-x-auto relative min-h-[200px]">
                 {isLoading && (
-                    <div className=" flex items-center justify-center">
-                        <div className="flex flex-col items-center gap-2">
-                            <div className="w-8 h-8 border-4 border-gray-200 border-t-blue-600 rounded-full animate-spin"></div>
-                            <span className="text-sm font-medium text-gray-text">Loading data...</span>
-                        </div>
+                    <div className=" absolute top-[58%] left-[50%] -translate-x-[50%] -translate-y-[50%]  flex items-center justify-center">
+                        <ActionsLoader />
                     </div>
                 )}
-
+                
                 <AriaTable
                     aria-label="Tasks Management"
                     selectionMode="multiple"

@@ -1,4 +1,5 @@
 @import "tailwindcss";
+
 @font-face {
   font-family: "FunnelSansNormal";
   src: url("./assets/Fonts/Funnel_Sans/FunnelSans-VariableFont_wght.ttf") format("truetype");
@@ -28,4 +29,20 @@
   --color-Button-text: #141414;
   --color-black-text: #000000;
   --color-white-text: #ffffff;
+}
+
+
+@keyframes moving {
+  50% {
+    width: 100%;
+  }
+  100% {
+    width: 0;
+    right: 0;
+    left: unset;
+  }
+}
+
+.animate-moving {
+  animation: moving 1s ease-in-out infinite;
 }
