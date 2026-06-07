@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import ActionButton from '../../common/Buttons/ActionButton'
+import toast from 'react-hot-toast'
 
 const TaskModal = ({
   isOpen,
@@ -17,21 +18,55 @@ const TaskModal = ({
   const [descriptionValue, setDescriptionValue] = useState(initialDescription)
   const [statusValue, setStatusValue] = useState(initialStatus)
 
+  const [errors, setErrors] = useState({});
+
   useEffect(() => {
     if (isOpen) {
       setTitleValue(initialTitle)
       setDescriptionValue(initialDescription)
       setStatusValue(initialStatus)
+      setErrors({})
     }
   }, [isOpen, initialTitle, initialDescription, initialStatus])
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    if (!titleValue.trim()) return
+    const localErrors = {};
+
+    const trimmedTitle = titleValue.trim();
+    const hasLetters = /[a-zA-Z\u0600-\u06FF]/.test(trimmedTitle);
+    const trimmedDescription = descriptionValue.trim();
+
+    if (!taskId) {
+      if (!trimmedTitle) {
+        localErrors.title = "title is required and cannot be empty.";
+        toast.error(localErrors.title);
+      } else if (hasLetters) {
+        localErrors.title = "Title must contain letters only, numbers are not allowed.";
+        toast.error(localErrors.title);
+      }
+    } else {
+      if (titleValue !== initialTitle && !trimmedTitle) {
+        localErrors.title = "Title cannot be empty.";
+        toast.error(localErrors.title);
+      }
+      const validStatuses = ['pending', 'in-progress', 'completed'];
+      if (!validStatuses.includes(statusValue)) {
+        localErrors.status = "Status must be one of: pending, in-progress, completed.";
+        toast.error(localErrors.title);
+      }
+    }
+
+    if (Object.keys(localErrors).length > 0) {
+      setErrors(localErrors);
+      return;
+    }
+
+    setErrors({});
 
     const payload = {
-      title: titleValue.trim(),
-      description: descriptionValue.trim(),
+      title: trimmedTitle,
+      description: trimmedDescription,
     }
 
     if (taskId) {
@@ -42,7 +77,6 @@ const TaskModal = ({
     onSave(payload)
     onClose()
   }
-
   if (!isOpen) return null
 
   const statusOptions = [

@@ -30,7 +30,7 @@ const DeleteAlert = ({ isOpen, onClose, onConfirm }) => {
                                 type="submit"
                                 Name="Delete"
                                 onClick={onConfirm}
-                                className="text-main-background bg-red-color inline-flex w-full justify-center"
+                                className="text-main-text bg-red-color inline-flex w-full justify-center"
                             />
                         </div>
                         <div className="border w-full">
