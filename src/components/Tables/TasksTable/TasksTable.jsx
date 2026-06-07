@@ -91,11 +91,10 @@ export const TasksTable = ({
         <div className="w-full overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
             <div className="overflow-x-auto relative min-h-[200px]">
                 {isLoading && (
-                    <div className=" absolute top-[58%] left-[50%] -translate-x-[50%] -translate-y-[50%]  flex items-center justify-center">
+                    <div className=" absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%]  flex items-center justify-center">
                         <ActionsLoader />
                     </div>
                 )}
-                
                 <AriaTable
                     aria-label="Tasks Management"
                     selectionMode="multiple"
@@ -106,6 +105,9 @@ export const TasksTable = ({
                     <TableHeader className="border-b border-gray-200 bg-gray-50 text-xs font-medium text-gray-text uppercase tracking-wider">
                         <Column isRowHeader id="title" allowsSorting className="p-4 cursor-pointer hover:bg-gray-100">Title</Column>
                         <Column id="description" className="p-4">Description</Column>
+                        <Column id="createdAt" allowsSorting className="p-4 cursor-pointer hover:bg-gray-100">
+                            Created At
+                        </Column>
                         <Column id="status" allowsSorting className="p-4 cursor-pointer hover:bg-gray-100">Status</Column>
                         <Column id="actions" className="p-4 text-right"></Column>
                     </TableHeader>
@@ -121,6 +123,15 @@ export const TasksTable = ({
                             <Row id={item.id} className="border-b border-gray-200 hover:bg-gray-50/50 transition-colors">
                                 <Cell className="p-4 text-sm text-gray-700 whitespace-nowrap font-medium">{item.title}</Cell>
                                 <Cell className="p-4 text-sm text-gray-text max-w-xs md:max-w-md truncate">{item.description || "—"}</Cell>
+
+                                <Cell className="p-4 text-sm text-gray-700 whitespace-nowrap">
+                                    {new Date(item.createdAt).toLocaleString("en-US", {
+                                        weekday: "short",
+                                        hour: "2-digit",
+                                        minute: "2-digit",
+                                    })}
+                                </Cell>
+
                                 <Cell className="p-4">
                                     <span className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium border ${getStatusStyles(item.status).bg}`}>
                                         <span className="h-1.5 w-1.5 rounded-full bg-current" />

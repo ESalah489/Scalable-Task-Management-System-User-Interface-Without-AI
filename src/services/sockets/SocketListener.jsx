@@ -7,7 +7,7 @@ const SocketListener = ({ children }) => {
 
     useEffect(() => {
         const socket = io("http://localhost:5000");
-        socket.on("taskUpdated", (data) => {
+        socket.on("taskStatusUpdated", (data) => {
             console.log("Real-time update received:", data);
             queryClient.invalidateQueries({ queryKey: ["tasks"] });
         });
