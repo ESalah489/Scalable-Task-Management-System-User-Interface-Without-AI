@@ -34,14 +34,14 @@ const TaskModal = ({
     const localErrors = {};
 
     const trimmedTitle = titleValue.trim();
-    const hasLetters = /[a-zA-Z\u0600-\u06FF]/.test(trimmedTitle);
+    const hasLetters = /^[a-zA-Z\u0600-\u06FF\s]+$/.test(trimmedTitle);
     const trimmedDescription = descriptionValue.trim();
 
     if (!taskId) {
       if (!trimmedTitle) {
         localErrors.title = "title is required and cannot be empty.";
         toast.error(localErrors.title);
-      } else if (hasLetters) {
+      } else if (!hasLetters) {
         localErrors.title = "Title must contain letters only, numbers are not allowed.";
         toast.error(localErrors.title);
       }
