@@ -1,9 +1,10 @@
 import { RouterProvider } from "react-router-dom";
 import routes from "./routes/routes.jsx";
 import "./index.css";
-import React, { Suspense, useEffect, useState } from "react";
+import React, { Suspense  } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import ErrorBoundary from "./components/Error/ErrorBoundary.jsx";
+import SocketListener from "./services/sockets/SocketListener.jsx";
 const queryClient = new QueryClient();
 
 function App() {
@@ -12,11 +13,13 @@ function App() {
     <React.Fragment>
       <ErrorBoundary>
         <QueryClientProvider client={queryClient}>
-          <div className="bg-main-background overflow-hidden">
+          <SocketListener>
+          <div className="bg-main-text overflow-hidden">
             <Suspense fallback={null}>
               <RouterProvider router={routes} />
             </Suspense>
           </div>
+          </SocketListener>
         </QueryClientProvider>
       </ErrorBoundary>
     </React.Fragment>

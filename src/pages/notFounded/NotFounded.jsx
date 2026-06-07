@@ -1,7 +1,7 @@
 import React from "react";
 import notfound from "../../assets/404/404-computer.svg";
 import LazyImage from "../../components/LazyImage/LazyImage";
-import StaticButton from "../../components/Buttons/StaticButton";
+import StaticButton from "../../components/common/Buttons/StaticButton";
 
 const NotFound = () => {
     return (
